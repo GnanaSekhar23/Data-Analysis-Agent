@@ -306,6 +306,4 @@ No code changes needed — the agent reads the config at startup.
 
 ---
 
-## License
 
-MIT
