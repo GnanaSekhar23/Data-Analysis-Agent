@@ -1,0 +1,32 @@
+# Environment variables — never commit these
+.env
+
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+
+# Data files — too large for GitHub
+data/
+
+# Node
+frontend/node_modules/
+frontend/dist/
+
+# GCP credentials
+*.json
+application_default_credentials.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/

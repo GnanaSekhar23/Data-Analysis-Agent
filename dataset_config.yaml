@@ -1,0 +1,73 @@
+name: "Olist Brazilian E-Commerce"
+database: "olist_db"
+description: "Real Brazilian e-commerce data from 2016-2018 with 100k orders"
+
+tables:
+  - name: customers
+    file: olist_customers_dataset.csv
+    description: "Customer details and location"
+    key_columns: [customer_id, customer_city, customer_state]
+
+  - name: geolocation
+    file: olist_geolocation_dataset.csv
+    description: "ZIP code to lat/lng mapping"
+    key_columns: [geolocation_zip_code_prefix, geolocation_city, geolocation_state]
+
+  - name: order_items
+    file: olist_order_items_dataset.csv
+    description: "One row per item within an order"
+    key_columns: [order_id, product_id, seller_id, price, freight_value]
+
+  - name: order_payments
+    file: olist_order_payments_dataset.csv
+    description: "Payment details per order"
+    key_columns: [order_id, payment_type, payment_value]
+
+  - name: order_reviews
+    file: olist_order_reviews_dataset.csv
+    description: "Customer reviews and scores"
+    key_columns: [order_id, review_score, review_comment_message]
+
+  - name: orders
+    file: olist_orders_dataset.csv
+    description: "One row per order — main fact table"
+    key_columns: [order_id, customer_id, order_status, order_purchase_timestamp]
+
+  - name: products
+    file: olist_products_dataset.csv
+    description: "Product catalog with categories"
+    key_columns: [product_id, product_category_name]
+
+  - name: sellers
+    file: olist_sellers_dataset.csv
+    description: "Seller details and location"
+    key_columns: [seller_id, seller_city, seller_state]
+
+  - name: product_category_translation
+    file: product_category_name_translation.csv
+    description: "Portuguese to English category names"
+    key_columns: [product_category_name, product_category_name_english]
+
+relationships:
+  - "orders.customer_id → customers.customer_id"
+  - "order_items.order_id → orders.order_id"
+  - "order_items.product_id → products.product_id"
+  - "order_items.seller_id → sellers.seller_id"
+  - "order_payments.order_id → orders.order_id"
+  - "order_reviews.order_id → orders.order_id"
+
+hints:
+  - "Always use order_purchase_timestamp for date filtering on orders"
+  - "Join product_category_translation to get English category names"
+  - "freight_value in order_items is the shipping cost"
+  - "payment_value in order_payments is the actual amount paid"
+  - "review_score is 1 to 5 stars"
+  - "order_status values: delivered, shipped, canceled, unavailable, invoiced, processing, created, approved"
+  - "price in order_items is the product price excluding shipping"
+
+chart_preferences:
+  time_series: line
+  categorical: bar
+  distribution: histogram
+  correlation: scatter
+  proportion: pie
