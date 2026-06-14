@@ -19,8 +19,9 @@ data/
 frontend/node_modules/
 frontend/dist/
 
-# GCP credentials
-*.json
+# GCP credentials — only exclude these specific files
+*credentials*.json
+*service-account*.json
 application_default_credentials.json
 
 # OS
