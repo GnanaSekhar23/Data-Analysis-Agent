@@ -1,5 +1,5 @@
 fastapi
-uvicorn
+uvicorn[standard]
 python-multipart
 pydantic
 langgraph
@@ -9,6 +9,7 @@ langchain-openai
 langchain-google-vertexai
 google-cloud-aiplatform
 google-auth
+google-auth-httplib2
 pymysql
 sqlalchemy
 pandas
